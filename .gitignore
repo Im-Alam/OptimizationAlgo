@@ -1,0 +1,9 @@
+*.csv
+.env
+*.env
+venv
+*env
+ConferenceEnv
+data
+__pycache__
+*.pyc
