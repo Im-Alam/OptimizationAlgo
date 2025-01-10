@@ -21,12 +21,13 @@ def objective(x, y):
  
 
 # Easoms function
-def easom(x, y):
+def easom(param):
     """
     x: [-10, 10]
     y: [-10, 10]
     optimum at (pi,pi)
     """
+    x, y = param
     return -cos(x) * cos(y) * exp(-((x - pi)**2 + (y - pi)**2))
 
 
