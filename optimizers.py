@@ -1,5 +1,4 @@
 import numpy
-import math
 import random
 import time
 
@@ -24,7 +23,7 @@ class solution:
         return f"best indivisual: {self.bestIndividual} \n best soln: {self.best} \n convergence: {self.convergence}"
 
 
-def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
+def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 10):
     # initialize alpha, beta, and delta_pos
     Alpha_pos = numpy.zeros(dim)
     Alpha_score = float("inf")
@@ -47,7 +46,6 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
             numpy.random.uniform(0, 1, SearchAgents_no) * (ub[i] - lb[i]) + lb[i]
         )
     
-    print(Positions)
 
     Convergence_curve = numpy.zeros(Max_iter)
     s = solution()
@@ -60,6 +58,7 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
     
     # Main loop
     for l in range(0, Max_iter):
+        print(f"Running iteration {l} ...")
         for i in range(0, SearchAgents_no):
 
             # Return back the search agents that go beyond the boundaries of the search space
@@ -67,7 +66,7 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
                 Positions[i, j] = numpy.clip(Positions[i, j], lb[j], ub[j])
 
             # Calculate objective function for each search agent
-            print(Positions[i, :])
+            # print(Positions[i, :])
             fitness = objf(Positions[i, :])
 
             # Update Alpha, Beta, and Delta
@@ -141,7 +140,8 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
         Convergence_curve[l] = Alpha_score
 
         if l % 1 == 0:
-            print(["At iteration " + str(l) + " the best fitness is " + str(Alpha_score)])
+            print(["At iteration " + str(l) + " the best fitness is " + str(Alpha_score)], " and Best parameter: ", Alpha_pos)
+            print("-"*50)
 
     timerEnd = time.time()
     s.endTime = time.strftime("%Y-%m-%d-%H-%M-%S")
@@ -151,7 +151,7 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 1000):
     s.bestIndividual = Alpha_pos
     s.objfname = objf.__name__
 
-    return s
+    return s, Alpha_score
 
 
 def PSO(objf, lb, ub, dim, PopSize, iters):
