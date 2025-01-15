@@ -23,7 +23,7 @@ class solution:
         return f"best indivisual: {self.bestIndividual} \n best soln: {self.best} \n convergence: {self.convergence}"
 
 
-def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 10):
+def GWO_l(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 10):
     # initialize alpha, beta, and delta_pos
     Alpha_pos = numpy.zeros(dim)
     Alpha_score = float("inf")
@@ -141,7 +141,7 @@ def GWO(objf, lb, ub, dim, SearchAgents_no:int = 5, Max_iter:int = 10):
 
         if l % 1 == 0:
             print(["At iteration " + str(l) + " the best fitness is " + str(Alpha_score)], " and Best parameter: ", Alpha_pos)
-            print("-"*50)
+            print("=="*50)
 
     timerEnd = time.time()
     s.endTime = time.strftime("%Y-%m-%d-%H-%M-%S")
