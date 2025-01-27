@@ -5,6 +5,7 @@ venv
 *env
 ConferenceEnv
 data
+data2
 temp
 __pycache__
 *.pyc
